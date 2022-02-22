@@ -13,7 +13,7 @@ function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/create-post', 
+    axios.post('http://localhost:3001/post/create', 
     {
       title: title, 
       content: content,

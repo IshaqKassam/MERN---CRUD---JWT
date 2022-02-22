@@ -21,7 +21,7 @@ function ReadPost({ data }) {
 	useEffect(() => {
 		data
 			? Axios.get(
-					"http://localhost:3001/post/read",
+					`${process.env.SERVER}post/read`,
 					{
 						params: {
 							searchTitle: data,
@@ -37,7 +37,7 @@ function ReadPost({ data }) {
 			  }).catch((error) => {
 				  console.log(error.message)
 			  })
-			: Axios.get("http://localhost:3001/post/read", {
+			: Axios.get(`${process.env.REACT_APP_SERVER_URL}/post/read`, {
 					headers: {
 						Authorization: "Bearer " + token,
 					},

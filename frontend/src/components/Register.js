@@ -34,7 +34,7 @@ function Register() {
 		e.preventDefault()
 		axios
 			.post(
-				"http://localhost:3001/auth/register",
+				`${process.env.SERVER}/auth/register`,
 				{
 					first_name: firstName,
 					last_name: lastName,
