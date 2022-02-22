@@ -7,7 +7,7 @@ const ensureAuthenticated = async (req, res, next) => {
 			console.log("headers received", req.headers.authorization)
 			const token = req.headers.authorization.split(" ")[1]
 			var verify = await jwt.verify(token, process.env.TOKEN_KEY)
-			console.log("verify")
+			// console.log("verify")
 			verify && next() 
 
 		} catch (err) {
