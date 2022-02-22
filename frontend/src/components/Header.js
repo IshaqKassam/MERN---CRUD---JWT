@@ -39,12 +39,14 @@ function Header({ childToParent }) {
 						>
 							Create
 						</Link>
+						{!(location.pathname === '/login') &&
 						<Link
-							className={splitLocation[1] === "login" ? "active" : "link"}
-							to="/login"
+						className={splitLocation[1] === "logout" ? "active" : "link"}
+						to="/" onClick={() => {localStorage.removeItem('token')}}
 						>
-							Login
+							logout
 						</Link>
+						}
 					</ul>
 				</Links>
 			</NavBar>

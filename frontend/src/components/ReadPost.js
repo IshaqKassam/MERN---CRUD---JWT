@@ -16,7 +16,7 @@ function ReadPost({ data }) {
 
   // const cookie = Cookies.get('token')
   // console.log(document.cookie)
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token") || ""
 //   console.log("token from localstorage is ", token)
   useEffect(() => {
     data

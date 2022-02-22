@@ -36,5 +36,6 @@ exports.createPost = async (req, res) => {
 		console.log("done")
 	} catch (err) {
 		console.log(err)
+		res.send(err)
 	}
 }

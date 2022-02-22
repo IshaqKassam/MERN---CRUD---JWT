@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import styled from "styled-components"
 import Axios from "axios"
 import axios from "axios"
@@ -10,10 +10,23 @@ function CreatePost() {
 
   const navigate = useNavigate()
 
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token") || ''
+
+  useEffect(() =>{
+
+    if(token === ''){
+      navigate('/login')
+    }
+
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener('popstate', function(event) {
+      window.history.pushState(null, document.title, window.location.href);
+    });
+  })
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios
+    Axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/post/create`,
         {
@@ -27,36 +40,44 @@ function CreatePost() {
         }
       )
       .then((response) => {
-        console.log(response.data.message)
-      }).then(navigate("/"))
+        console.log(response)
+        // navigate("/")
+      })
+      .catch((error) => {
+        console.log("error from read posts", error.response.data)
+        navigate("/login")
+      })
   }
 
   return (
-    <FormContainer>
+      
+      <FormContainer>
       <form onSubmit={handleSubmit}>
-        <h3>Write a Blog</h3>
-        <Title>
-          <input
+      <h3>Write a Blog</h3>
+      <Title>
+      <input
             type="text"
             onChange={(event) => {
               setTitle(event.target.value)
             }}
             placeholder="  Enter Title"
           />
-        </Title>
-        <Content>
+          </Title>
+          <Content>
           <textarea
             type="text"
             onChange={(event) => {
               setContent(event.target.value)
             }}
             placeholder=" Content of the Post here"
-          ></textarea>
+            ></textarea>
         </Content>
         <button type="submit">Submit</button>
-      </form>
-    </FormContainer>
-  )
+        </form>
+        </FormContainer>
+      
+        )
+          
 }
 
 export default CreatePost
