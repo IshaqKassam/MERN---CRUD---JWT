@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Axios from "axios"
 import { useNavigate } from "react-router-dom"
 // import Cookies from "js-cookie"
+import Cookies from "universal-cookie"
 
 function ReadPost( { data }) {
   const [posts, setPosts] = useState([])
@@ -13,8 +14,9 @@ function ReadPost( { data }) {
   const [newContent, setNewContent] = useState("")
 
   const navigate = useNavigate()
-  const cookie = (document.cookie) || ""
-  console.log(document.cookie)
+  const cookie = new Cookies()
+  const token = (cookie.get("token")) || ""
+  
   
   // const token = localStorage.getItem("token") || ""
   // const token = localStorage.getItem("token") || ""
@@ -30,7 +32,7 @@ function ReadPost( { data }) {
             },
           },
           {
-            headers: { Authorization: "Bearer " + cookie },
+            headers: { Authorization: "Bearer " + token },
           }
         )
           .then((response) => {
@@ -42,7 +44,7 @@ function ReadPost( { data }) {
           })
       : Axios.get(`${process.env.REACT_APP_SERVER_URL}/post/read`, {
           headers: {
-            Authorization: "Bearer " + cookie,
+            Authorization: "Bearer " + token,
           },
         })
           .then((response) => {

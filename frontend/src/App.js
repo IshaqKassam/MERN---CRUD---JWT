@@ -26,8 +26,8 @@ function App() {
   const loginToApp = (token) => {
     const cookies = new Cookies()
     console.log(token)
-    cookies.set("token", token, { path: "/post/read" })
-    cookies.set("cookie", "kassam", { path: "/auth" })
+    cookies.set("token", token, { path: "/" })
+    // cookies.set("cookie", "kassam", { path: "/" })
   }
 
   return (

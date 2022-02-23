@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const UserModel = require('../models/User')
-const jwt = require('jsonwebtoken')
+const jwt = require( 'jsonwebtoken' )
+const Cookies = require('universal-cookie')
 
 exports.login = async (req, res) => {
 	try {
@@ -77,4 +78,9 @@ exports.register = async (req, res) => {
 	} catch (err) {
 		console.log(err.message.data)
 	}
+}
+
+exports.logout = async ( req, res ) => {
+	const cookies = new Cookies()
+	return res.headers.cookie.token = null
 }
