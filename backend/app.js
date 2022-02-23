@@ -4,14 +4,16 @@ const express = require("express")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const cp = require("cookie-parser")
+const Cookies = require("universal-cookie")
 const cors = require("cors")
 
 // const authenticate = require("./middleware/auth")
 
 const app = express()
 
-app.use(cors({
-	origin: 'http://localhost:3000',
+app.use( cors( {
+	allowedHeaders: ['Content-Type', 'Authorization'],
+	origin: ['http://localhost:3000'],
 	credentials: true,
 }))
 app.use(cp())

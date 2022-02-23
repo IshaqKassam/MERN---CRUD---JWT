@@ -4,31 +4,33 @@ import Axios from "axios"
 import { useNavigate } from "react-router-dom"
 // import Cookies from "js-cookie"
 
-function ReadPost({ data }) {
+function ReadPost( { data }) {
   const [posts, setPosts] = useState([])
   const [selectEdit, setSelectEdit] = useState("false")
   const [selectedId, setSelectedId] = useState("")
-
+  console.log(data)
   const [newTitle, setNewTitle] = useState("")
   const [newContent, setNewContent] = useState("")
 
   const navigate = useNavigate()
-
-  // const cookie = Cookies.get('token')
-  // console.log(document.cookie)
-  const token = localStorage.getItem("token") || ""
-//   console.log("token from localstorage is ", token)
+  const cookie = (document.cookie) || ""
+  console.log(document.cookie)
+  
+  // const token = localStorage.getItem("token") || ""
+  // const token = localStorage.getItem("token") || ""
+  //   console.log("token from localstorage is ", token)
   useEffect(() => {
+    // tokenCookie(cookie)
     data
       ? Axios.get(
-          `${process.env.SERVER}post/read`,
+          `${process.env.REACT_APP_SERVER_URL}/post/read`,
           {
             params: {
               searchTitle: data,
             },
           },
           {
-            headers: { Authorization: "Bearer " + token },
+            headers: { Authorization: "Bearer " + cookie },
           }
         )
           .then((response) => {
@@ -40,7 +42,7 @@ function ReadPost({ data }) {
           })
       : Axios.get(`${process.env.REACT_APP_SERVER_URL}/post/read`, {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer " + cookie,
           },
         })
           .then((response) => {
@@ -53,7 +55,7 @@ function ReadPost({ data }) {
           })
 
     // console.log("Cookie from server:", cookie)
-  }, [posts])
+  }, [])
 
   const deleteBlog = (id) => (event) => {
     if (window.confirm("Are you sure you want to delete?")) {

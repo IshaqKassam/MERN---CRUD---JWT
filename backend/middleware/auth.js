@@ -1,12 +1,18 @@
-const jwt = require("jsonwebtoken")
-require("dotenv").config()
+const jwt = require( "jsonwebtoken" )
+const cookieParser = require( "cookie-parser" )
+const Cookies = require("universal-cookie")
+require( "dotenv" ).config()
 
 const ensureAuthenticated = async (req, res, next) => {
-	if (req.headers.authorization) {
-		try {
-			console.log("headers received", req.headers.authorization)
-			const token = req.headers.authorization.split(" ")[1]
-			var verify = await jwt.verify(token, process.env.TOKEN_KEY)
+	if (req.cookies) {
+		try { 	
+			const cookies = new Cookies(req.headers.cookie)
+			// const decoded = cookies.split('; ')
+			// console.log(decoded)
+			// console.log("headers received", req.headers.authorization)
+			console.log("headers received", cookies.get('cookie'))
+			// const token = req.headers.authorization.split(" ")[1]
+			var verify = await jwt.verify(cookies.get('cookie'), process.env.TOKEN_KEY)
 			// console.log("verify")
 			verify && next() 
 

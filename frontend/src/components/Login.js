@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import styled from "styled-components"
 import { Link, useNavigate } from "react-router-dom"
+import Cookies from 'universal-cookie'
 // import { response } from "../../../backend/app"
 
-const Login = () => {
+const Login = ({loginToApp}) => {
 	const navigate = useNavigate()
 
 	const [email, setEmail] = useState("")
@@ -34,6 +35,7 @@ const Login = () => {
 			.then((response) => {
 				response.status === 201 && navigate("/")
 				console.log("token for login is: ", response.data.token)
+				loginToApp(response.data.token)
 				localStorage.setItem("token", response.data.token)
 			})
 			.catch((error) => {
