@@ -10,9 +10,12 @@ const ensureAuthenticated = async (req, res, next) => {
 			// const decoded = cookies.split('; ')
 			// console.log(decoded)
 			// console.log("headers received", req.headers.authorization)
-			console.log("headers received", cookies.get('cookie'))
+			// console.log("headers received", cookies.get('cookie'))
+			console.log("headers received", req.headers.cookie)
+			console.log("token received", cookies.get('token'))
+			console.log("cookie received", cookies.get('cookie'))
 			// const token = req.headers.authorization.split(" ")[1]
-			var verify = await jwt.verify(cookies.get('cookie'), process.env.TOKEN_KEY)
+			var verify = await jwt.verify(cookies.get('token'), process.env.TOKEN_KEY)
 			// console.log("verify")
 			verify && next() 
 

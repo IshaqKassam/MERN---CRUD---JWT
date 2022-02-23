@@ -12,7 +12,11 @@ function CreatePost() {
 
   const token = localStorage.getItem("token") || ''
 
-  useEffect(() =>{
+  useEffect( () => {
+    
+    axios.get( 'http://localhost:4005/auth' ).then( ( response ) => {
+      console.log(response)
+    })
 
     if(token === ''){
       navigate('/login')
