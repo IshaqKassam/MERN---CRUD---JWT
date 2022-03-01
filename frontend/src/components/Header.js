@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 function Header({ childToParent }) {
 	const [search, setSearch] = useState("");
 	const location = useLocation();
 	const { pathname } = location;
+	const navigate = useNavigate()
 	const splitLocation = pathname.split("/");
-
+	const cookies = new Cookies()
 	return (
 		<Container>
 			<NavBar>
@@ -42,7 +44,11 @@ function Header({ childToParent }) {
 						{!(location.pathname === '/login') &&
 						<Link
 						className={splitLocation[1] === "logout" ? "active" : "link"}
-						to="/" onClick={() => {localStorage.removeItem('token')}}
+								to="/" onClick={() =>
+								{
+									cookies.set( 'token', '', { path: '/', expires: ( new Date( Date.now() - 2) ) } )
+									navigate("/")
+								}}
 						>
 							logout
 						</Link>

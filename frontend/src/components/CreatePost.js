@@ -3,30 +3,31 @@ import styled from "styled-components"
 import Axios from "axios"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import Cookies from 'universal-cookie'
 
 function CreatePost() {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
-
+const cookies = new Cookies()
   const navigate = useNavigate()
 
-  const token = localStorage.getItem("token") || ''
+  const token = cookies.get('token') || ''
 
-  useEffect( () => {
+  // useEffect( () => {
     
-    axios.get( 'http://localhost:4005/auth' ).then( ( response ) => {
-      console.log(response)
-    })
+    // axios.get( 'http://localhost:4005/auth' ).then( ( response ) => {
+    //   console.log(response)
+    // })
 
-    if(token === ''){
-      navigate('/login')
-    }
+    // if(token === ''){
+    //   navigate('/login')
+    // }
 
-    window.history.pushState(null, document.title, window.location.href);
-    window.addEventListener('popstate', function(event) {
-      window.history.pushState(null, document.title, window.location.href);
-    });
-  })
+    // window.history.pushState(null, document.title, window.location.href);
+    // window.addEventListener('popstate', function(event) {
+    //   window.history.pushState(null, document.title, window.location.href);
+    // });
+  // })
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -37,11 +38,6 @@ function CreatePost() {
           title: title,
           content: content,
         },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
       )
       .then((response) => {
         console.log(response)

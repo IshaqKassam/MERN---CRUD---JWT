@@ -66,11 +66,11 @@ exports.register = async (req, res) => {
 
 		user.token = token
 
-		res.cookie("token", token, {
-			sameSite: 'Lax'
-		})
+		// res.cookie("token", token, {
+		// 	sameSite: 'Lax'
+		// })
 
-		console.log("token from cookie from server is ", res.cookie.token)
+		// console.log("token from cookie from server is ", res.cookie.token)
 		console.log("token from server is ", token)
 
 		res.status(201).json(user)

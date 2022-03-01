@@ -6,7 +6,7 @@ const postController = require("../controllers/postController")
 
 router.use(ensureAuthenticated)
 
-router.post('/create', ensureAuthenticated,  postController.createPost )
-router.get('/read', ensureAuthenticated, postController.readPosts )
+router.post('/create',  postController.createPost )
+router.get('/read', postController.readPosts )
 
 module.exports = router

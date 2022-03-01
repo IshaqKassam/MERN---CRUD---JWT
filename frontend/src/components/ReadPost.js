@@ -4,35 +4,29 @@ import Axios from "axios"
 import { useNavigate } from "react-router-dom"
 // import Cookies from "js-cookie"
 
-function ReadPost( { data }) {
+function ReadPost({ data }) {
   const [posts, setPosts] = useState([])
   const [selectEdit, setSelectEdit] = useState("false")
   const [selectedId, setSelectedId] = useState("")
-  console.log(data)
+  console.log("search data is here", data)
   const [newTitle, setNewTitle] = useState("")
   const [newContent, setNewContent] = useState("")
 
   const navigate = useNavigate()
-  const cookie = (document.cookie) || ""
-  console.log(document.cookie)
-  
+  // const cookie = document.cookie || ""
+  console.log("cookie from document.cookie is ", document.cookie)
+
   // const token = localStorage.getItem("token") || ""
   // const token = localStorage.getItem("token") || ""
   //   console.log("token from localstorage is ", token)
   useEffect(() => {
     // tokenCookie(cookie)
     data
-      ? Axios.get(
-          `${process.env.REACT_APP_SERVER_URL}/post/read`,
-          {
-            params: {
-              searchTitle: data,
-            },
+      ? Axios.get(`${process.env.REACT_APP_SERVER_URL}/post/read`, {
+          params: {
+            searchTitle: data,
           },
-          {
-            headers: { Authorization: "Bearer " + cookie },
-          }
-        )
+        })
           .then((response) => {
             console.log("response got from the server is", response)
             setPosts(response.data)
@@ -40,18 +34,18 @@ function ReadPost( { data }) {
           .catch((error) => {
             console.log(error.message)
           })
-      : Axios.get(`${process.env.REACT_APP_SERVER_URL}/post/read`, {
-          headers: {
-            Authorization: "Bearer " + cookie,
-          },
-        })
+      : Axios.get( `${ process.env.REACT_APP_SERVER_URL }/post/read`, {
+        credentials: "include",
+      })
           .then((response) => {
             setPosts(response.data)
-            // console.log(response)
+            console.log("posts gotten are: ", response)
           })
           .catch((error) => {
-            console.log("error from read posts", error.response.data)
-            navigate("/login")
+            console.log("error from read posts")
+            // if (error) {
+              navigate("/login")
+            // }
           })
 
     // console.log("Cookie from server:", cookie)
@@ -60,7 +54,7 @@ function ReadPost( { data }) {
   const deleteBlog = (id) => (event) => {
     if (window.confirm("Are you sure you want to delete?")) {
       setSelectedId(id)
-      Axios.delete(`http://localhost:3001/delete/${id}`)
+      Axios.delete(`${process.env.REACT_APP_SERVER_URL}/delete/${id}`)
     }
   }
   const editBlog = (id) => (event) => {
@@ -74,7 +68,7 @@ function ReadPost( { data }) {
   }
 
   const update = (val) => {
-    Axios.put("http://localhost:3001/update-post", {
+    Axios.put(`${process.env.REACT_APP_SERVER_URL}/update-post`, {
       id: val._id,
       newTitle: newTitle ? newTitle : val.title,
       newContent: newContent ? newContent : val.content,

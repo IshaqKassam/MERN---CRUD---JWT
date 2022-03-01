@@ -1,6 +1,6 @@
 const ArticleModel = require("../models/Article")
 
-exports.readPosts = async (req, res) => {
+exports.readPosts = (req, res) => {
 	const title = req.body.searchTitle
 	if (title) {
 		ArticleModel.findOne({ title: title }, (err, result) => {

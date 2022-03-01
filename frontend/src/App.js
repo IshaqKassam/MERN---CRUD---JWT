@@ -11,23 +11,25 @@ import Cookies from "universal-cookie"
 
 function App() {
   const [data, setData] = useState("")
+  const [cookie, setCookie] = useState("")
 
   const childToParent = (childData) => {
     setData(childData)
     console.log("data from app js  " + childData)
   }
 
-//   const tokenCookie = (token) => {
-//     const cookies = new Cookies()
-//     console.log(token)
-//     cookies.set("cookie", token, { path: "/" })
-//   }
+  //   const tokenCookie = (token) => {
+  //     const cookies = new Cookies()
+  //     console.log(token)
+  //     cookies.set("cookie", token, { path: "/" })
+  //   }
 
   const loginToApp = (token) => {
     const cookies = new Cookies()
-    console.log(token)
-    cookies.set("token", token, { path: "/post/read" })
-    cookies.set("cookie", "kassam", { path: "/auth" })
+	  console.log( token )
+	//   setCookie(token)
+    cookies.set("token", token, { path: "/"})
+    // cookies.set("cookie", "kassam", { path: "/" })
   }
 
   return (
@@ -38,10 +40,7 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login loginToApp={loginToApp} />} />
-          <Route
-            path="/"
-            element={<ReadPost data={data}  />}
-          />
+          <Route path="/" element={<ReadPost data={data} />} />
           <Route path="/create-post" element={<CreatePost />} />
         </Routes>
       </Container>
