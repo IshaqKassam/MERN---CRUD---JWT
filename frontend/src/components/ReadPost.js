@@ -58,7 +58,7 @@ function ReadPost({ data }) {
   const deleteBlog = (id) => (event) => {
     if (window.confirm("Are you sure you want to delete?")) {
       setSelectedId(id)
-      Axios.delete(`http://localhost:3001/delete/${id}`)
+      Axios.delete(`http://localhost:3004/delete/${id}`)
     }
   }
   const editBlog = (id) => (event) => {
@@ -72,7 +72,7 @@ function ReadPost({ data }) {
   }
 
   const update = (val) => {
-    Axios.put("http://localhost:3001/update-post", {
+    Axios.put("http://localhost:3004/update-post", {
       id: val._id,
       newTitle: newTitle ? newTitle : val.title,
       newContent: newContent ? newContent : val.content,

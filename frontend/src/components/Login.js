@@ -24,7 +24,7 @@ const Login = () => {
 		e.preventDefault()
 		axios
 			.post(
-				"http://localhost:3001/auth/login",
+				"http://localhost:3004/auth/login",
 				{
 					email,
 					password,

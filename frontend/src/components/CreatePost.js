@@ -41,7 +41,7 @@ function CreatePost() {
       )
       .then((response) => {
         console.log(response)
-        // navigate("/")
+        navigate("/")
       })
       .catch((error) => {
         console.log("error from read posts", error.response.data)
